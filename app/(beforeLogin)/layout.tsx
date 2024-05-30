@@ -1,3 +1,4 @@
+import Header from "@/components/layout/Header";
 import { ReactNode } from "react";
 
 interface LayoutProps {
@@ -7,6 +8,7 @@ interface LayoutProps {
 export default function Layout({ children, modal }: LayoutProps) {
   return (
     <div>
+      <Header />
       {children}
       {modal}
     </div>

@@ -23,10 +23,10 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: "hsl(var(--background-color))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "hsl(var(--primary-color))",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -82,4 +82,3 @@ const config = {
 } satisfies Config;
 
 export default config;
-
