@@ -7,7 +7,7 @@ export default function Hero() {
     <div className="flex w-full justify-around mt-10">
       <div className="flex flex-col gap-6">
         <span className="p-4 bg-primary-hover text-primary-dark">
-          $200의 무료 크레딧과 20여 개 제품에 대한 무료 사용량이 제공될지도?
+          $300의 무료 크레딧과 20여 개 제품에 대한 무료 사용량이 제공될지도?
         </span>
         <div className="flex flex-col gap-2">
           <h1 className="text-primary font-extrabold text-5xl">
