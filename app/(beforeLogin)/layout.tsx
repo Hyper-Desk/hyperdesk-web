@@ -3,14 +3,12 @@ import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
-  modal: ReactNode;
 }
-export default function Layout({ children, modal }: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   return (
     <div>
       <Header />
       {children}
-      {modal}
     </div>
   );
 }
