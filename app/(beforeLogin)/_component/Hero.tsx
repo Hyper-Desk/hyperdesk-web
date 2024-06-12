@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className="flex w-full justify-around mt-10">
+    <div className="flex w-full justify-center gap-28 mt-10">
       <div className="flex flex-col gap-6">
         <span className="p-4 bg-primary-hover text-primary-dark">
           $300의 무료 크레딧과 30여 개 제품에 대한 무료 사용량이 제공될지도?
