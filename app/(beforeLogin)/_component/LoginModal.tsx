@@ -27,9 +27,9 @@ export default function LoginModal() {
             <div className="p-10 flex gap-8">
               <Image
                 className="rounded-2xl shadow-lg"
-                src={faker.image.urlLoremFlickr({ width: 600, height: 600 })}
-                width="600"
-                height="600"
+                src={faker.image.urlLoremFlickr({ width: 300, height: 300 })}
+                width="300"
+                height="300"
                 alt="hero IMG"
               />
               <div className="flex flex-col gap-4 w-full">
