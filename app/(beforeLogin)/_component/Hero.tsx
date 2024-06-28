@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className="mt-10 flex w-full justify-center gap-28 -z-20">
+    <div className="mt-10 flex w-[1200px] h-[500px] justify-center gap-28 -z-20">
       <div className="flex flex-col gap-6">
         <span className="bg-primary-hover p-4 text-primary-dark">
           {faker.lorem.sentence()}
@@ -29,9 +29,9 @@ export default function Hero() {
       </div>
       <Image
         className="rounded-2xl shadow-lg"
-        src={faker.image.urlLoremFlickr({ width: 400, height: 400 })}
-        width="400"
-        height="400"
+        src={faker.image.urlLoremFlickr()}
+        width="500"
+        height="500"
         alt="hero IMG"
       />
     </div>

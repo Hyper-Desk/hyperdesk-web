@@ -16,7 +16,7 @@ export default function NavInfo() {
   };
 
   return (
-    <div className="mt-10 flex justify-center items-center bg-gray-100 px-20">
+    <div className="mt-20 flex justify-center items-center bg-gray-100 px-20">
       <div className="flex flex-col">
         <nav className="flex gap-6 justify-start border-b border-gray-300 text-gray-500">
           <span
@@ -54,7 +54,20 @@ export default function NavInfo() {
           className={cn(visibleSection !== "section-1" && "hidden", "p-10")}
         >
           <div className="flex gap-6">
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[500px] h-[150px] bg-white">
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+              <div className="flex flex-col gap-1 p-4">
+                <h1 className="text-gray-500">{faker.lorem.word()}</h1>
+                <p>{faker.lorem.sentence()}</p>
+              </div>
+              <Image
+                className="rounded-r-lg"
+                src={faker.image.urlLoremFlickr()}
+                width="100"
+                height="100"
+                alt="hero IMG"
+              />
+            </div>
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -67,20 +80,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[500px] h-[150px] bg-white">
-              <div className="flex flex-col gap-1 p-4">
-                <h1 className="text-gray-500">{faker.lorem.word()}</h1>
-                <p>{faker.lorem.sentence()}</p>
-              </div>
-              <Image
-                className="rounded-r-lg"
-                src={faker.image.urlLoremFlickr()}
-                width="150"
-                height="100"
-                alt="hero IMG"
-              />
-            </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[500px] h-[150px] bg-white">
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -99,7 +99,7 @@ export default function NavInfo() {
           className={cn(visibleSection !== "section-2" && "hidden", "p-10")}
         >
           <div className="flex gap-6">
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[500px] h-[150px] bg-white">
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -112,7 +112,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[500px] h-[150px] bg-white">
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -125,7 +125,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[500px] h-[150px] bg-white">
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -144,7 +144,7 @@ export default function NavInfo() {
           className={cn(visibleSection !== "section-3" && "hidden", "p-10")}
         >
           <div className="flex gap-6">
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[500px] h-[150px] bg-white">
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -157,7 +157,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[500px] h-[150px] bg-white">
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -170,7 +170,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[500px] h-[150px] bg-white">
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
