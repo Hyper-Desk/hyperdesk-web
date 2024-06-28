@@ -17,14 +17,14 @@ import { Button } from "@/components/ui/button";
 export default function LoginModal() {
   return (
     <Dialog>
-      <DialogTrigger className="p-2 bg-white rounded-sm text-primary text-lg font-medium hover:bg-primary-light hover:shadow-sm">
+      <DialogTrigger className="rounded-sm bg-white p-2 text-lg font-medium text-primary hover:bg-primary-light hover:shadow-sm">
         로그인
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>로그인</DialogTitle>
           <DialogDescription>
-            <div className="p-10 flex gap-8">
+            <div className="flex gap-8 p-10">
               <Image
                 className="rounded-2xl shadow-lg"
                 src={faker.image.urlLoremFlickr({ width: 300, height: 300 })}
@@ -32,7 +32,7 @@ export default function LoginModal() {
                 height="300"
                 alt="hero IMG"
               />
-              <div className="flex flex-col gap-4 w-full">
+              <div className="flex w-full flex-col gap-4">
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="email">이메일</Label>
                   <Input id="email" type="email" className="w-full" />
