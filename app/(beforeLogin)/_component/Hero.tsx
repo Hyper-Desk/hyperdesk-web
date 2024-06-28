@@ -7,17 +7,17 @@ export default function Hero() {
     <div className="mt-10 flex w-full justify-center gap-28 -z-20">
       <div className="flex flex-col gap-6">
         <span className="bg-primary-hover p-4 text-primary-dark">
-          $300의 무료 크레딧과 30여 개 제품에 대한 무료 사용량이 제공될지도?
+          {faker.lorem.sentence()}
         </span>
         <div className="flex flex-col gap-2">
           <h1 className="text-5xl font-extrabold text-primary">
-            세계 최강의 클라우드 플랫폼
+            {faker.lorem.slug()}
           </h1>
           <h1 className="text-5xl font-extrabold text-blue-400">
-            하이퍼 데스크
+            {faker.lorem.slug()}
           </h1>
         </div>
-        <span>엄청난 서비스 제공 예정! 진짜 개쩔예정입니다.</span>
+        <span>{faker.lorem.sentence()}</span>
         <div className="flex gap-4">
           <Button className="rounded-sm p-6 text-base hover:bg-primary-dark hover:shadow-sm">
             Console로 이동
