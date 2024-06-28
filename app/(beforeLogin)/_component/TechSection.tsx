@@ -17,7 +17,7 @@ export default function TechSection() {
   };
   return (
     <div className="-bottom-[1600px] mt-20 flex w-[1600px] flex-col bg-black p-20">
-      <div className="flex gap-8">
+      <div className="flex gap-8 justify-center">
         <h1 className="text-5xl font-medium text-white">
           <span className="text-primary">{faker.lorem.word()}</span>{" "}
           {faker.lorem.sentence()}
@@ -32,7 +32,7 @@ export default function TechSection() {
           </Button>
         </div>
       </div>
-      <div className="mt-20 flex justify-between gap-6 p-6">
+      <div className="mt-20 flex justify-around gap-6 p-6">
         <nav className="flex flex-col items-center justify-center gap-6">
           <span className="text-2xl font-medium text-white">
             {faker.lorem.word()}
@@ -47,15 +47,15 @@ export default function TechSection() {
         <section className="">
           <Image
             className="rounded-2xl shadow-lg"
-            src={faker.image.urlLoremFlickr({ width: 700, height: 700 })}
-            width="700"
-            height="700"
+            src={faker.image.urlLoremFlickr({ width: 600, height: 600 })}
+            width="600"
+            height="600"
             alt="hero IMG"
           />
         </section>
       </div>
-      <div className="mt-20 flex gap-12">
-        <div className="flex w-[500px] flex-col rounded-xl bg-zinc-900 p-6 cursor-pointer hover:bg-zinc-800">
+      <div className="mt-20 flex gap-12 justify-center">
+        <div className="flex w-[400px] flex-col rounded-xl bg-zinc-900 p-6 cursor-pointer hover:bg-zinc-800">
           <Image
             alt="hero IMG"
             className="rounded-2xl"
@@ -70,7 +70,7 @@ export default function TechSection() {
             </p>
           </Link>
         </div>
-        <div className="flex w-[500px] flex-col rounded-xl bg-zinc-900 p-6 cursor-pointer hover:bg-zinc-800">
+        <div className="flex w-[400px] flex-col rounded-xl bg-zinc-900 p-6 cursor-pointer hover:bg-zinc-800">
           <Image
             alt="hero IMG"
             className="rounded-2xl"
@@ -85,7 +85,7 @@ export default function TechSection() {
             </p>
           </Link>
         </div>
-        <div className="flex w-[500px] flex-col rounded-xl bg-zinc-900 p-6 cursor-pointer hover:bg-zinc-800">
+        <div className="flex w-[400px] flex-col rounded-xl bg-zinc-900 p-6 cursor-pointer hover:bg-zinc-800">
           <Image
             alt="hero IMG"
             className="rounded-2xl"
