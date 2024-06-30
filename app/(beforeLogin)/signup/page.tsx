@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
-export default function Login() {
+export default function SignUp() {
   return (
     <div className="flex h-screen w-full items-center justify-center p-16">
       <div className="flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold text-primary">로그인</h1>
+        <h1 className="text-2xl font-bold text-primary">회원가입</h1>
         <div className="flex w-96 flex-col">
           <input
             type="text"
@@ -18,16 +17,8 @@ export default function Login() {
             className="my-2 rounded-md border p-2"
           />
           <Button className="my-2 rounded-md bg-primary p-2 text-white hover:bg-primary-dark">
-            로그인
-          </Button>
-          <Link
-            href="/signup"
-            className="my-2 rounded-md text-sm font-medium
-            flex items-center justify-center
-            border border-primary-dark bg-white p-2 text-primary-dark hover:bg-gray-200"
-          >
             회원가입
-          </Link>
+          </Button>
         </div>
       </div>
     </div>
