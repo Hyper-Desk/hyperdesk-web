@@ -7,15 +7,18 @@ export default function Advertisement() {
     <div className="mt-20 flex w-[1200px] h-[400px] justify-center gap-52 -z-20">
       <Image
         className="rounded-2xl shadow-lg"
-        src={faker.image.urlLoremFlickr()}
+        src="/landing/recycle.jpeg"
         width="400"
         height="400"
         alt="hero IMG"
       />
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
-          <h1 className="text-5xl font-medium">{faker.lorem.slug()}</h1>
-          <h1 className="text-5xl font-medium">{faker.lorem.slug()}</h1>
+          <h1 className="text-5xl font-bold leading-[60px]">
+            잠들어 있는 컴퓨팅 자원의
+            <br />
+            재탄생
+          </h1>
         </div>
         <span className="text-gray-500">{faker.lorem.sentence()}</span>
         <div className="flex gap-4">

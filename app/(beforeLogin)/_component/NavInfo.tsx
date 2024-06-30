@@ -27,7 +27,7 @@ export default function NavInfo() {
             )}
             onClick={() => handleNavClick("section-1")}
           >
-            <h1>{faker.lorem.word()}</h1>
+            <h1>사용자</h1>
           </span>
           <span
             className={cn(
@@ -37,7 +37,7 @@ export default function NavInfo() {
             )}
             onClick={() => handleNavClick("section-2")}
           >
-            <h1>{faker.lorem.word()}</h1>
+            <h1>개발자</h1>
           </span>
           <span
             className={cn(
@@ -47,11 +47,56 @@ export default function NavInfo() {
             )}
             onClick={() => handleNavClick("section-3")}
           >
-            <h1>{faker.lorem.word()}</h1>
+            <h1>비즈니스</h1>
           </span>
         </nav>
         <section
           className={cn(visibleSection !== "section-1" && "hidden", "p-10")}
+        >
+          <div className="flex gap-6">
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+              <div className="flex flex-col gap-1 p-4">
+                <h1 className="text-gray-500">수익 창출</h1>
+                <p>사용하지 않는 컴퓨팅 자원을 제공해 수익을 창출하세요</p>
+              </div>
+              <Image
+                className="rounded-r-lg"
+                src="/landing/money.jpeg"
+                width="100"
+                height="100"
+                alt="hero IMG"
+              />
+            </div>
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+              <div className="flex flex-col gap-1 p-4">
+                <h1 className="text-gray-500">컴퓨팅 자원</h1>
+                <p>필요한만큼 컴퓨팅 자원을 이용하세요</p>
+              </div>
+              <Image
+                className="rounded-r-lg"
+                src="/landing/computing.jpeg"
+                width="100"
+                height="100"
+                alt="hero IMG"
+              />
+            </div>
+            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+              <div className="flex flex-col gap-1 p-4">
+                <h1 className="text-gray-500">스토리지</h1>
+                <p>소중한 데이터를 안전하게 보관하세요</p>
+              </div>
+              <Image
+                className="rounded-r-lg"
+                src="/landing/storage.jpeg"
+                width="100"
+                height="100"
+                alt="hero IMG"
+              />
+            </div>
+          </div>
+        </section>
+        <section
+          className={cn(visibleSection !== "section-2" && "hidden", "p-10")}
         >
           <div className="flex gap-6">
             <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
@@ -75,7 +120,7 @@ export default function NavInfo() {
               <Image
                 className="rounded-r-lg"
                 src={faker.image.urlLoremFlickr()}
-                width="150"
+                width="100"
                 height="100"
                 alt="hero IMG"
               />
@@ -88,52 +133,7 @@ export default function NavInfo() {
               <Image
                 className="rounded-r-lg"
                 src={faker.image.urlLoremFlickr()}
-                width="150"
-                height="100"
-                alt="hero IMG"
-              />
-            </div>
-          </div>
-        </section>
-        <section
-          className={cn(visibleSection !== "section-2" && "hidden", "p-10")}
-        >
-          <div className="flex gap-6">
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
-              <div className="flex flex-col gap-1 p-4">
-                <h1 className="text-gray-500">{faker.lorem.word()}</h1>
-                <p>{faker.lorem.sentence()}</p>
-              </div>
-              <Image
-                className="rounded-r-lg"
-                src={faker.image.urlLoremFlickr()}
-                width="150"
-                height="100"
-                alt="hero IMG"
-              />
-            </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
-              <div className="flex flex-col gap-1 p-4">
-                <h1 className="text-gray-500">{faker.lorem.word()}</h1>
-                <p>{faker.lorem.sentence()}</p>
-              </div>
-              <Image
-                className="rounded-r-lg"
-                src={faker.image.urlLoremFlickr()}
-                width="150"
-                height="100"
-                alt="hero IMG"
-              />
-            </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
-              <div className="flex flex-col gap-1 p-4">
-                <h1 className="text-gray-500">{faker.lorem.word()}</h1>
-                <p>{faker.lorem.sentence()}</p>
-              </div>
-              <Image
-                className="rounded-r-lg"
-                src={faker.image.urlLoremFlickr()}
-                width="150"
+                width="100"
                 height="100"
                 alt="hero IMG"
               />
@@ -152,7 +152,7 @@ export default function NavInfo() {
               <Image
                 className="rounded-r-lg"
                 src={faker.image.urlLoremFlickr()}
-                width="150"
+                width="100"
                 height="100"
                 alt="hero IMG"
               />
@@ -165,7 +165,7 @@ export default function NavInfo() {
               <Image
                 className="rounded-r-lg"
                 src={faker.image.urlLoremFlickr()}
-                width="150"
+                width="100"
                 height="100"
                 alt="hero IMG"
               />
@@ -178,7 +178,7 @@ export default function NavInfo() {
               <Image
                 className="rounded-r-lg"
                 src={faker.image.urlLoremFlickr()}
-                width="150"
+                width="100"
                 height="100"
                 alt="hero IMG"
               />

@@ -18,14 +18,15 @@ export default function TechSection() {
   return (
     <div className="-bottom-[1600px] mt-20 flex w-[1600px] flex-col bg-black p-20">
       <div className="flex gap-8 justify-center">
-        <h1 className="text-5xl font-medium text-white">
-          <span className="text-primary">{faker.lorem.word()}</span>{" "}
-          {faker.lorem.sentence()}
+        <h1 className="text-5xl font-medium text-white leading-[60px]">
+          <span className="text-primary">하이퍼데스크</span>는 분산된 가상화
+          기반의 개인 유휴 컴퓨팅 자원을 통합/관리하여 하나로 구성한 사설
+          클라우드 인프라 서비스 플랫폼입니다.
         </h1>
         <div className="flex flex-col gap-4">
           <p className="text-3xl font-medium text-white">
-            <span className="text-blue-400">{faker.lorem.word()}</span>{" "}
-            {faker.lorem.sentence()}
+            차별화된 <span className="text-blue-400">가상화</span> 기술을 이용한
+            신세계를 경험해보세요.
           </p>
           <Button className="w-[200px] rounded-sm bg-white p-6 text-base text-primary hover:bg-primary-light hover:shadow-sm">
             콘솔에서 사용해보기
@@ -47,7 +48,7 @@ export default function TechSection() {
         <section className="">
           <Image
             className="rounded-2xl shadow-lg"
-            src={faker.image.urlLoremFlickr({ width: 600, height: 600 })}
+            src="/landing/cloud.jpeg"
             width="600"
             height="600"
             alt="hero IMG"
