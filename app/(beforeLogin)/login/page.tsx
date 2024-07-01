@@ -1,23 +1,62 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Login() {
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    if (!userId || !userId.trim()) {
+      setError("아이디를 입력해주세요.");
+      return;
+    }
+    if (!password || !password.trim()) {
+      setError("비밀번호를 입력해주세요.");
+      return;
+    }
+
+    try {
+      await signIn("credentials", {
+        username: userId,
+        password,
+      });
+      router.replace("/console");
+    } catch (error) {
+      setError("아이디 또는 비밀번호가 일치하지 않습니다.");
+      return;
+    }
+  };
+
   return (
     <div className="flex h-screen w-full items-center justify-center p-16">
       <div className="flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold text-primary">로그인</h1>
+        <h1 className="mb-4 text-5xl font-bold text-primary">로그인</h1>
         <div className="flex w-96 flex-col">
           <input
             type="text"
-            placeholder="Username"
+            placeholder="아이디"
             className="my-2 rounded-md border p-2"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
             className="my-2 rounded-md border p-2"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          <Button className="my-2 rounded-md bg-primary p-2 text-white hover:bg-primary-dark">
+          <Button
+            className="my-2 rounded-md bg-primary p-2 text-white hover:bg-primary-dark"
+            onClick={handleLogin}
+          >
             로그인
           </Button>
           <Link
@@ -28,6 +67,9 @@ export default function Login() {
           >
             회원가입
           </Link>
+          <div className="my-2 rounded-md text-sm font-medium text-red-500 w-full h-[10px] flex justify-center items-center">
+            {error}
+          </div>
         </div>
       </div>
     </div>
