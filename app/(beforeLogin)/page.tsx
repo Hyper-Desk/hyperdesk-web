@@ -5,7 +5,7 @@ import TechSection from "./_component/TechSection";
 
 export default function Home() {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center px-44 py-10">
+    <div className="flex w-full flex-col items-center justify-center px-44 py-10">
       <Hero />
       <NavInfo />
       <Advertisement />
