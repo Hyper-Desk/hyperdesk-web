@@ -2,7 +2,7 @@ import { signIn } from "@/auth";
 import { BASE_URL } from "@/lib/constant";
 import { redirect } from "next/navigation";
 
-export default async (prevState: any, formData: FormData) => {
+export default async function onSubmit(_: any, formData: FormData) {
   if (!formData.get("userId") || !(formData.get("userId") as string)?.trim()) {
     return { message: "no_userId" };
   }
@@ -37,4 +37,4 @@ export default async (prevState: any, formData: FormData) => {
   if (shouldRedirect) {
     redirect("/");
   }
-};
+}
