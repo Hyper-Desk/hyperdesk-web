@@ -1,12 +1,14 @@
 import { auth, signOut } from "@/auth";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { redirect } from "next/navigation";
 
 export default async function Header() {
   const session = await auth();
 
   const handleLogout = async () => {
     await signOut();
+    redirect("/");
   };
 
   if (session?.user) {
