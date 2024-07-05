@@ -10,7 +10,9 @@ export default function Header() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await signOut();
+    await signOut({
+      redirect: false,
+    });
     router.replace("/");
   };
 
