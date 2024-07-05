@@ -1,31 +1,25 @@
 "use client";
 
-import { BASE_URL } from "@/lib/constant";
-import axios from "axios";
+import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { instance } from "@/lib/instance";
+import { BASE_URL } from "@/lib/constant";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const instance = axios.create({
-  baseURL: BASE_URL,
-  withCredentials: true,
-});
-
-export function AxiosInterceptor({ children }: Props) {
-  const { data, update } = useSession();
+export const useAxiosAuth = () => {
+  const { data, status, update } = useSession();
   const router = useRouter();
 
   useEffect(() => {
+    if (status !== "authenticated") return;
+
     const requestInterceptor = instance.interceptors.request.use(
       (config) => {
-        if (!data?.user.accessToken) {
+        if (!data?.user?.accessToken) {
           router.replace("/login");
           return config;
         }
+
         config.headers.Authorization = `Bearer ${data.user.accessToken}`;
         return config;
       },
@@ -40,10 +34,11 @@ export function AxiosInterceptor({ children }: Props) {
       },
       async (error) => {
         if (error.response?.status === 401) {
-          if (!data?.user.refreshToken) {
+          if (!data?.user?.refreshToken) {
             router.replace("/login");
             return Promise.reject(error);
           }
+
           try {
             const response = await fetch(`${BASE_URL}/user/refresh`, {
               method: "POST",
@@ -70,6 +65,7 @@ export function AxiosInterceptor({ children }: Props) {
             return Promise.reject(error);
           }
         }
+
         return Promise.reject(error);
       },
     );
@@ -78,9 +74,7 @@ export function AxiosInterceptor({ children }: Props) {
       instance.interceptors.request.eject(requestInterceptor);
       instance.interceptors.response.eject(responseInterceptor);
     };
-  }, [router, data, update]);
+  }, [router, data, update, status]);
 
-  return children;
-}
-
-export default instance;
+  return instance;
+};
