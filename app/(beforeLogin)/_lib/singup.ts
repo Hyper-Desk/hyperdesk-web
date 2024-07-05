@@ -1,4 +1,4 @@
-import { signIn } from "@/auth";
+import { signIn } from "next-auth/react";
 import { BASE_URL } from "@/lib/constant";
 import { redirect } from "next/navigation";
 
@@ -20,7 +20,7 @@ export default async function onSubmit(_: any, formData: FormData) {
       body: formData,
       credentials: "include",
     });
-    if (response.status === 403) {
+    if (response.status === 409) {
       return { message: "user_exists" };
     }
     shouldRedirect = true;

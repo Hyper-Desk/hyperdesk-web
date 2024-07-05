@@ -24,7 +24,7 @@ export default function Header() {
           onClick={handleLogout}
           className="text-primary hover:text-primary-dark bg-white hover:bg-white"
         >
-          {data?.user?.name} 로그아웃
+          로그아웃
         </Button>
       </div>
     );

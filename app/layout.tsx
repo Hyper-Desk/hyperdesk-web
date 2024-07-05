@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import AuthSession from "@/components/AuthSession";
+import AxiosInterceptor from "./apis/AxiosInterceptor";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -21,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={fontSans.className}>
-        <AuthSession>{children}</AuthSession>
+        <AuthSession>
+          <AxiosInterceptor>{children}</AxiosInterceptor>
+        </AuthSession>
       </body>
     </html>
   );

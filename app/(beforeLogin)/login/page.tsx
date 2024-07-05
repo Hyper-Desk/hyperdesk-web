@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,6 +11,12 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+  const { data } = useSession();
+
+  if (data?.user) {
+    router.replace("/");
+    return null;
+  }
 
   const handleLogin = async () => {
     if (!userId || !userId.trim()) {
@@ -23,13 +29,18 @@ export default function Login() {
     }
 
     try {
-      await signIn("credentials", {
+      const result = await signIn("credentials", {
         username: userId,
         password,
+        redirect: false,
       });
-      router.replace("/console");
+      if (result?.error) {
+        setError("아이디 또는 비밀번호가 일치하지 않습니다.");
+        return;
+      }
+      router.replace("/");
     } catch (error) {
-      setError("아이디 또는 비밀번호가 일치하지 않습니다.");
+      setError("로그인 중에 오류가 발생했습니다.");
       return;
     }
   };

@@ -1,12 +1,14 @@
 import { auth } from "@/auth";
-import { BASE_URL } from "./lib/constant";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function middleware() {
+export async function middleware(req: NextRequest) {
   const session = await auth();
   if (!session) {
-    return NextResponse.redirect(`${BASE_URL}/login`);
+    const url = req.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
   }
+  return NextResponse.next();
 }
 
 export const config = {
