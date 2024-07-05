@@ -25,7 +25,7 @@ export default function SignUp() {
   const { pending } = useFormStatus();
 
   return (
-    <div className="flex h-screen w-full items-center justify-center p-16">
+    <div className="flex h-full w-full items-center justify-center p-16">
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold text-primary mb-4">
           계정을 생성하세요

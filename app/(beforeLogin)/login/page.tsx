@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,12 +11,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-  const { data } = useSession();
-
-  if (data?.user) {
-    router.replace("/");
-    return null;
-  }
 
   const handleLogin = async () => {
     if (!userId || !userId.trim()) {
@@ -34,7 +28,6 @@ export default function Login() {
         password,
         redirect: false,
       });
-      console.log("result", result);
       if (result?.error) {
         setError("아이디 또는 비밀번호가 일치하지 않습니다.");
         return;
@@ -47,7 +40,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen w-full items-center justify-center p-16">
+    <div className="flex h-full w-full items-center justify-center p-16">
       <div className="flex flex-col items-center justify-center">
         <h1 className="mb-4 text-5xl font-bold text-primary">로그인</h1>
         <div className="flex w-96 flex-col">
