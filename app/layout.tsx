@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import AuthSession from "@/components/AuthSession";
-import AxiosInterceptor from "./apis/AxiosInterceptor";
+import { AxiosInterceptor } from "./apis/AxiosInterceptor";
 
 const fontSans = FontSans({
   subsets: ["latin"],

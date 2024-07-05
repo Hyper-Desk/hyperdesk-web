@@ -34,6 +34,7 @@ export default function Login() {
         password,
         redirect: false,
       });
+      console.log("result", result);
       if (result?.error) {
         setError("아이디 또는 비밀번호가 일치하지 않습니다.");
         return;
