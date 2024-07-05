@@ -29,7 +29,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const user = await authResponse.json();
 
-        return user;
+        return {
+          name: user.userId,
+        };
       },
     }),
   ],

@@ -1,17 +1,20 @@
-import { auth, signOut } from "@/auth";
+"use client";
+
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export default async function Header() {
-  const session = await auth();
+export default function Header() {
+  const { data } = useSession();
+  const router = useRouter();
 
   const handleLogout = async () => {
     await signOut();
-    redirect("/");
+    router.replace("/");
   };
 
-  if (session?.user) {
+  if (data?.user) {
     return (
       <div className="flex h-16 w-full items-center justify-between border-gray-100 p-4 shadow-lg">
         <Link href="/" className="text-xl font-extrabold text-primary">
@@ -21,7 +24,7 @@ export default async function Header() {
           onClick={handleLogout}
           className="text-primary hover:text-primary-dark bg-white hover:bg-white"
         >
-          로그아웃
+          {data?.user?.name} 로그아웃
         </Button>
       </div>
     );
