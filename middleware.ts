@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
 
   const { pathname } = req.nextUrl;
 
-  if (pathname.startsWith("/console")) {
+  if (pathname.startsWith("/console") || pathname.startsWith("/profile")) {
     if (!session) {
       const url = req.nextUrl.clone();
       url.pathname = "/login";
@@ -24,5 +24,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/console", "/login", "/signup"],
+  matcher: ["/console", "/profile", "/login", "/signup"],
 };
