@@ -3,12 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useAxiosAuth } from "@/hooks/useAxiosAuth";
+import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
 
 export default function Profile() {
   const { toast } = useToast();
-  const axios = useAxiosAuth();
+  const { instance } = useAuth();
   const [address, setAddress] = useState("");
   const [port, setPort] = useState("");
   const [username, setUsername] = useState("");
@@ -16,7 +16,7 @@ export default function Profile() {
 
   const handleToken = async () => {
     try {
-      await axios.post("/user/token", {
+      await instance.post("/user/token", {
         address,
         port,
         username,
