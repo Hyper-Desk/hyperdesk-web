@@ -3,16 +3,37 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { useAxiosAuth } from "@/hooks/useAxiosAuth";
+import { useState } from "react";
 
 export default function Profile() {
   const { toast } = useToast();
+  const axios = useAxiosAuth();
+  const [address, setAddress] = useState("");
+  const [port, setPort] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleToken = () => {
-    toast({
-      title: "토큰 등록",
-      description: "토큰이 성공적으로 등록되었습니다.",
-      className: "bg-primary text-white",
-    });
+  const handleToken = async () => {
+    try {
+      await axios.post("/user/token", {
+        address,
+        port,
+        username,
+        password,
+      });
+      toast({
+        title: "토큰 등록",
+        description: "토큰이 성공적으로 등록되었습니다.",
+        className: "bg-primary text-white",
+      });
+    } catch {
+      toast({
+        variant: "destructive",
+        title: "토큰 등록",
+        description: "토큰 등록에 실패했습니다.",
+      });
+    }
   };
 
   return (
@@ -33,6 +54,8 @@ export default function Profile() {
                 id="address"
                 className="rounded-md border p-2 w-96"
                 placeholder="IP 주소 또는 도메인 입력"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -44,17 +67,21 @@ export default function Profile() {
                 id="port"
                 className="rounded-md border p-2"
                 placeholder="포트 번호 입력"
+                value={port}
+                onChange={(e) => setPort(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="id" className="text-lg font-bold">
+              <label htmlFor="username" className="text-lg font-bold">
                 아이디
               </label>
               <Input
                 type="text"
-                id="id"
+                id="username"
                 className="rounded-md border p-2"
                 placeholder="아이디 입력"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -66,10 +93,12 @@ export default function Profile() {
                 type="password"
                 className="rounded-md border p-2"
                 placeholder="비밀번호 입력"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
-          <Button className="w-[960px] text-lg font-bold" onClick={handleToken}>
+          <Button className="w-[985px] text-lg font-bold" onClick={handleToken}>
             등록
           </Button>
         </div>

@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useAxiosAuth } from "@/hooks/useAxiosAuth";
+import Link from "next/link";
 
 interface VM {
   vmid: number;
@@ -16,6 +17,7 @@ export default function Console() {
   const [data, setData] = useState<VM[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [first, setFirst] = useState(false);
   const axios = useAxiosAuth();
 
   useEffect(() => {
@@ -25,7 +27,11 @@ export default function Console() {
       setIsLoading(true);
       setError("");
       try {
-        const response = await axios.get<VM[]>("/user/vm_list");
+        const response = await axios.get<VM[]>("/user/owner_vm_list");
+        if (response.status === 404) {
+          setFirst(true);
+          return;
+        }
         setData(response.data);
       } catch (error) {
         if (error instanceof Error) {
@@ -51,6 +57,17 @@ export default function Console() {
         <h1 className="text-3xl font-bold">VM LIST</h1>
         {isLoading && <span>로딩중...</span>}
         {error && <span className="text-red-500">에러 발생 : {error}</span>}
+        {first && (
+          <div className="flex flex-col gap-4">
+            <h1 className="text-xl font-bold">토큰 등록 필요</h1>
+            <span className="text-lg">
+              토큰을 등록해야 VM 정보를 확인할 수 있습니다.
+            </span>
+            <Link href="/profile" className="text-primary">
+              토큰 등록하러 가기
+            </Link>
+          </div>
+        )}
         {data && (
           <div className="flex flex-col gap-4">
             {data.map((vm) => (
@@ -63,7 +80,9 @@ export default function Console() {
             ))}
           </div>
         )}
-        {!isLoading && !data && !error && <span>VM 정보가 없습니다.</span>}
+        {!isLoading && !data && !first && !error && (
+          <span>VM 정보가 없습니다.</span>
+        )}
       </div>
     </div>
   );

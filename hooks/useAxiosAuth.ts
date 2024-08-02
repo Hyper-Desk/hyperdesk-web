@@ -21,6 +21,7 @@ export const useAxiosAuth = () => {
         }
 
         config.headers.Authorization = `Bearer ${data.user.accessToken}`;
+
         return config;
       },
       (error) => {
@@ -33,6 +34,7 @@ export const useAxiosAuth = () => {
         return response;
       },
       async (error) => {
+        console.log(error);
         if (error.response?.status === 401) {
           if (!data?.user?.refreshToken) {
             router.replace("/login");

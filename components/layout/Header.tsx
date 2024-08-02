@@ -1,20 +1,11 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+import ProfileImage from "./_components/ProfileImage";
 
 export default function Header() {
   const { data } = useSession();
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    await signOut({
-      redirect: false,
-    });
-    router.replace("/");
-  };
 
   if (data?.user) {
     return (
@@ -22,12 +13,7 @@ export default function Header() {
         <Link href="/" className="text-xl font-extrabold text-primary">
           HYPERDESK
         </Link>
-        <Button
-          onClick={handleLogout}
-          className="text-primary hover:text-primary-dark bg-white hover:bg-white"
-        >
-          로그아웃
-        </Button>
+        <ProfileImage />
       </div>
     );
   }
