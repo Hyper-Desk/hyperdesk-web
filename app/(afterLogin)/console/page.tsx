@@ -2,8 +2,8 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useAxiosAuth } from "@/hooks/useAxiosAuth";
 import Link from "next/link";
+import { useAuth } from "@/hooks/useAuth";
 
 interface VM {
   vmid: number;
@@ -18,16 +18,17 @@ export default function Console() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [first, setFirst] = useState(false);
-  const axios = useAxiosAuth();
+  const { instance } = useAuth();
 
   useEffect(() => {
     if (status !== "authenticated") return;
+    console.log("fetchData");
 
     const fetchData = async () => {
       setIsLoading(true);
       setError("");
       try {
-        const response = await axios.get<VM[]>("/user/owner_vm_list");
+        const response = await instance.get<VM[]>("/user/owner_vm_list");
         if (response.status === 404) {
           setFirst(true);
           return;
@@ -43,7 +44,7 @@ export default function Console() {
       setIsLoading(false);
     };
     fetchData();
-  }, [axios, status]);
+  }, [status]);
 
   return (
     <div className="p-28">
