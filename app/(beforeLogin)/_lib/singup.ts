@@ -17,7 +17,10 @@ export default async function onSubmit(_: any, formData: FormData) {
   try {
     const response = await fetch(`${BASE_URL}/user/signup`, {
       method: "POST",
-      body: formData,
+      body: JSON.stringify({
+        userId: formData.get("userId"),
+        password: formData.get("password"),
+      }),
       credentials: "include",
     });
     if (response.status === 409) {
