@@ -1,1 +1,1 @@
-export const BASE_URL = "http://go.choish.shop/api";
+export const BASE_URL = "https://go.choish.shop/api";
