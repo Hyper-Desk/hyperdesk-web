@@ -3,7 +3,8 @@ import routes from "./routes";
 import { useRoutes } from "react-router-dom";
 
 export default function App() {
-  const isLoggedIn = false;
+  const accessToken = localStorage.getItem("accessToken");
+  const isLoggedIn = !!accessToken;
 
   const routing = useRoutes(routes(isLoggedIn));
 

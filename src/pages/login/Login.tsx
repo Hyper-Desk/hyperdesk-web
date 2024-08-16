@@ -21,13 +21,18 @@ export default function Login() {
 
   const onSubmit: SubmitHandler<LoginFormFields> = async (formData) => {
     try {
-      const { data } = await loginRequest(formData.id, formData.password);
-      console.log(data);
+      const { accessToken, userId } = await loginRequest(
+        formData.id,
+        formData.password,
+      );
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userId", userId);
       toast({
         variant: "primary",
         title: "로그인 성공",
         description: "메인 페이지로 이동합니다.",
       });
+      navigate("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(error);

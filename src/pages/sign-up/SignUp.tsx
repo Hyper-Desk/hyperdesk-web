@@ -18,13 +18,18 @@ export default function SignUp() {
 
   const onSubmit: SubmitHandler<SignUpFormFields> = async (formData) => {
     try {
-      await signUpRequest(formData.id, formData.password);
+      const { accessToken, userId } = await signUpRequest(
+        formData.id,
+        formData.password,
+      );
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userId", userId);
       toast({
         variant: "primary",
         title: "회원가입 성공",
-        description: "로그인 페이지로 이동합니다.",
+        description: "메인 페이지로 이동합니다.",
       });
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.error(error);
       setError("root", {

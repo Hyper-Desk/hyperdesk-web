@@ -1,18 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { faker } from "@faker-js/faker";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 
-type SectionType = "section-1" | "section-2" | "section-3";
+// type SectionType = "section-1" | "section-2" | "section-3";
 
 export default function TechSection() {
-  const [visibleSection, setVisibleSection] =
-    useState<SectionType>("section-1");
-
-  const handleNavClick = (section: SectionType) => {
-    setVisibleSection(section);
-  };
-
+  // const [visibleSection, setVisibleSection] =
+  //   useState<SectionType>("section-1");
+  //
+  // const handleNavClick = (section: SectionType) => {
+  //   setVisibleSection(section);
+  // };
+  //
   return (
     <div className="-bottom-[1600px] mt-20 flex w-[1600px] flex-col bg-black p-20">
       <div className="flex gap-8 justify-center">

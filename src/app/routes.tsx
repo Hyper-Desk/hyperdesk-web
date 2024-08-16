@@ -7,7 +7,7 @@ import { Navigate } from "react-router-dom";
 const routes = (isLoggedIn: boolean) => [
   {
     path: "/",
-    element: !isLoggedIn ? <MainLayout /> : <Navigate to="/app" />,
+    element: <MainLayout />,
     children: [
       {
         index: true,
@@ -15,13 +15,17 @@ const routes = (isLoggedIn: boolean) => [
       },
       {
         path: "login",
-        element: <Login />,
+        element: isLoggedIn ? <Navigate to="/" /> : <Login />,
       },
       {
         path: "signup",
-        element: <SignUp />,
+        element: isLoggedIn ? <Navigate to="/" /> : <SignUp />,
       },
     ],
+  },
+  {
+    path: "/app",
+    element: isLoggedIn ? <div>console</div> : <Navigate to="/login" />,
   },
 ];
 
