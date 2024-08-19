@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 
 export const instance = axios.create({
   baseURL: "https://go.choish.shop/api",
@@ -10,7 +9,7 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const token = Cookies.get("accessToken");
+  const token = localStorage.getItem("accessToken");
 
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
@@ -19,26 +18,39 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
-instance.interceptors.response.use(async (response) => {
-  if (response.status === 403) {
-    const refreshToken = Cookies.get("refreshToken");
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
 
-    if (refreshToken) {
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
       try {
-        const { data } = await axios.post(
+        const response = await axios.post(
           "https://go.choish.shop/api/user/refresh",
-          {
-            refreshToken,
-          },
+          {},
+          { withCredentials: true },
         );
-        Cookies.set("accessToken", data.accessToken);
-        return instance.request(response.config);
-      } catch (error) {
-        console.error(error);
-        return response;
+
+        const newAccessToken = response.data.accessToken;
+        localStorage.setItem("accessToken", newAccessToken);
+
+        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+
+        return instance(originalRequest);
+      } catch (err) {
+        console.error("Token refresh failed:", err);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("userId");
+        window.location.href = "/login";
+
+        return Promise.reject(err);
       }
     }
-  }
 
-  return response;
-});
+    return Promise.reject(error);
+  },
+);
