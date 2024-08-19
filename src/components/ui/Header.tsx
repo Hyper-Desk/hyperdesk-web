@@ -7,7 +7,7 @@ export default function Header() {
 
   if (userId) {
     return (
-      <div className="flex h-16 w-full items-center justify-between border-gray-100 p-4 shadow-lg">
+      <div className="flex h-16 w-full items-center justify-between border-gray-100 p-4 border-b">
         <Link to="/" className="text-xl font-extrabold text-primary">
           HYPERDESK
         </Link>
@@ -17,7 +17,7 @@ export default function Header() {
   }
 
   return (
-    <div className="flex h-16 w-full items-center justify-between border-gray-100 p-4 shadow-lg">
+    <div className="flex h-16 w-full items-center justify-between border-gray-100 p-4 border-b">
       <Link to="/" className="text-xl font-extrabold text-primary">
         HYPERDESK
       </Link>
