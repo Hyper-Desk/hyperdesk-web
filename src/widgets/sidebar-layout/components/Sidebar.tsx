@@ -25,7 +25,7 @@ export default function Sidebar() {
       <NavLink
         to="/app/computing"
         className={({ isActive }) =>
-          `w-[200px] p-6 hover:bg-gray-200 ${isActive ? "text-[#04c8a4]" : ""}`
+          `w-[200px] p-6 font-semibold hover:bg-gray-200 ${isActive ? "text-[#04c8a4]" : ""}`
         }
       >
         컴퓨팅
@@ -33,7 +33,7 @@ export default function Sidebar() {
       <NavLink
         to="/app/storage"
         className={({ isActive }) =>
-          `w-[200px] p-6 hover:bg-gray-200 ${isActive ? "text-[#04c8a4]" : ""}`
+          `w-[200px] p-6 font-semibold hover:bg-gray-200 ${isActive ? "text-[#04c8a4]" : ""}`
         }
       >
         스토리지
@@ -41,7 +41,7 @@ export default function Sidebar() {
       <NavLink
         to="/app/firewall"
         className={({ isActive }) =>
-          `w-[200px] p-6 hover:bg-gray-200 ${isActive ? "text-[#04c8a4]" : ""}`
+          `w-[200px] p-6 font-semibold hover:bg-gray-200 ${isActive ? "text-[#04c8a4]" : ""}`
         }
       >
         방화벽

@@ -5,11 +5,15 @@ import Footer from "@/components/ui/Footer";
 
 export default function SidebarLayout() {
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col font-inter">
       <Header />
       <main className="flex flex-grow w-full">
         <Sidebar />
-        <Outlet />
+        <div className="flex flex-col w-full relative">
+          <div className="absolute top-0 left-0 w-full h-full overflow-y-auto p-10">
+            <Outlet />
+          </div>
+        </div>
       </main>
       <Footer />
     </div>
