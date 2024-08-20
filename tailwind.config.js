@@ -5,7 +5,7 @@ module.exports = {
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}", 
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -77,8 +77,10 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      gridTemplateColumns: {
+        "auto-fit": "repeat(auto-fit, minmax(350px, 1fr))",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
 };
-
