@@ -5,31 +5,55 @@ import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DomainFormFields, domainFormSchema } from "../lib/domainFormSchema";
 import { SubmitHandler, useForm } from "react-hook-form";
-import axios from "axios";
+import { useProxmoxStore } from "@/stores/useProxmoxStore";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { instance } from "@/lib/instance";
 
 export default function DomainForm() {
   const { toast } = useToast();
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<DomainFormFields>({
     resolver: zodResolver(domainFormSchema),
   });
+  const { setDomain, setPort, setUserId, setPassword } = useProxmoxStore(
+    (state) => state,
+  );
+  const { isError, error } = useQuery({
+    queryKey: ["proxy"],
+    queryFn: async () => {
+      const { data } = await instance.get("/user/proxy");
+      setValue("domain", data.address);
+      setValue("port", data.port);
+      return data;
+    },
+  });
+
+  useEffect(() => {
+    if (isError) {
+      toast({
+        variant: "destructive",
+        title: "프록시 정보 불러오기 실패",
+        description: error.message,
+      });
+    }
+  }, [isError, error, toast]);
 
   const onSubmit: SubmitHandler<DomainFormFields> = async (formData) => {
-    try {
-      console.log(formData);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error(error);
-        toast({
-          variant: "destructive",
-          title: "서버 오류",
-          description: "서버 오류가 발생했습니다. 다시 시도해주세요.",
-        });
-      }
-    }
+    setDomain(formData.domain);
+    setPort(formData.port);
+    setUserId(formData.id);
+    setPassword(formData.password);
+
+    toast({
+      variant: "primary",
+      title: "등록 완료",
+      description: "하이퍼바이저가 등록되었습니다.",
+    });
   };
 
   return (
@@ -37,7 +61,7 @@ export default function DomainForm() {
       className="flex flex-col items-center w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex flex-col gap-4 self-center w-[1200px]">
+      <div className="flex flex-col gap-4 self-center w-7/8">
         <h1 className="text-4xl font-bold text-primary">
           🖥️ 하이퍼바이저 등록
         </h1>
@@ -53,7 +77,7 @@ export default function DomainForm() {
               {...register("domain")}
               id="domain"
               placeholder="도메인 또는 IP 주소를 입력하세요."
-              className="w-[600px]"
+              className="w-[400px]"
             />
           </div>
 
