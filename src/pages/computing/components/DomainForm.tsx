@@ -31,6 +31,7 @@ export default function DomainForm() {
       setValue("port", data.port);
       return data;
     },
+    retry: false,
   });
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function DomainForm() {
       toast({
         variant: "destructive",
         title: "프록시 정보 불러오기 실패",
-        description: error.message,
+        description: "프록시 정보를 등록한적이 없습니다.",
       });
     }
   }, [isError, error, toast]);
