@@ -40,7 +40,7 @@ export default function Node({
         >
           {vmid}
         </h1>
-        <h1 className="text-sm text-gray-900">{name}</h1>
+        <h1 className="text-sm text-gray-900 font-semibold">{name}</h1>
       </div>
 
       <img
