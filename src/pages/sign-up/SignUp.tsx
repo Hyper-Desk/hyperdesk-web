@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { signUpRequest } from "./apis/signUpRequest";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
+import axios from "axios";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -31,10 +32,18 @@ export default function SignUp() {
       });
       navigate("/");
     } catch (error) {
-      console.error(error);
-      setError("root", {
-        message: "서버 오류가 발생했습니다. 다시 시도해주세요.",
-      });
+      if (axios.isAxiosError(error)) {
+        console.error(error);
+        if (error.response?.status === 409) {
+          setError("id", {
+            message: "이미 사용중인 아이디입니다.",
+          });
+        } else {
+          setError("root", {
+            message: "서버 오류가 발생했습니다. 다시 시도해주세요.",
+          });
+        }
+      }
     }
   };
 
