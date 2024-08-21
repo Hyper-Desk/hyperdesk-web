@@ -8,6 +8,7 @@ export interface SystemNode {
   registered: boolean;
   status: string;
   type?: string;
+  template?: number;
 }
 
 export interface ParentNode {

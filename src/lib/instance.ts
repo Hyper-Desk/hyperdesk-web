@@ -46,6 +46,8 @@ instance.interceptors.response.use(
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
 
+        window.location.href = "/login";
+
         return Promise.reject(err);
       }
     }

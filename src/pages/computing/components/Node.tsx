@@ -2,14 +2,27 @@ import { cn } from "@/lib/utils";
 import { SystemNode } from "../types/proxmox";
 import VMImage from "/node/vm.webp";
 import LXCImage from "/node/lxc.webp";
+import VMTemplateImage from "/node/vm-template.webp";
 
 interface NodeProps {
   node: SystemNode;
 }
 
 export default function Node({
-  node: { vmid, name, cpus, maxdisk, maxmem, registered, status, type },
+  node: {
+    vmid,
+    name,
+    cpus,
+    maxdisk,
+    maxmem,
+    registered,
+    status,
+    type,
+    template,
+  },
 }: NodeProps) {
+  const isLXC = type === "lxc";
+  const isTemplate = template !== undefined;
   return (
     <div
       className={cn(
@@ -21,7 +34,8 @@ export default function Node({
         <h1
           className={cn(
             "text-xl text-primary font-extrabold",
-            type === "lxc" && "text-blue-400",
+            isLXC && "text-blue-400",
+            isTemplate && "text-[#FAC748]",
           )}
         >
           {vmid}
@@ -30,7 +44,7 @@ export default function Node({
       </div>
 
       <img
-        src={type === "lxc" ? LXCImage : VMImage}
+        src={isLXC ? LXCImage : isTemplate ? VMTemplateImage : VMImage}
         alt="VM"
         className="self-center w-[200px] h-[200px] object-cover rounded-xl"
       />
@@ -39,8 +53,9 @@ export default function Node({
         <p className="font-semibold">
           <span
             className={cn(
-              "text-lg font-extrabold",
-              type === "lxc" ? "text-blue-400" : "text-primary",
+              "text-lg font-extrabold text-primary",
+              isLXC && "text-blue-400",
+              isTemplate && "text-[#FAC748]",
             )}
           >
             CPU :
@@ -50,8 +65,9 @@ export default function Node({
         <p className="font-semibold">
           <span
             className={cn(
-              "text-lg font-extrabold",
-              type === "lxc" ? "text-blue-400" : "text-primary",
+              "text-lg font-extrabold text-primary",
+              isLXC && "text-blue-400",
+              isTemplate && "text-[#FAC748]",
             )}
           >
             저장 공간 :
@@ -64,24 +80,33 @@ export default function Node({
         <p className="font-semibold">
           <span
             className={cn(
-              "text-lg font-extrabold",
-              type === "lxc" ? "text-blue-400" : "text-primary",
+              "text-lg font-extrabold text-primary",
+              isLXC && "text-blue-400",
+              isTemplate && "text-[#FAC748]",
             )}
           >
             메모리 :
           </span>{" "}
-          {maxmem}MB
+          {maxmem}GB
         </p>
         <p className="font-semibold">
           <span
             className={cn(
-              "text-lg font-extrabold",
-              type === "lxc" ? "text-blue-400" : "text-primary",
+              "text-lg font-extrabold text-primary",
+              isLXC && "text-blue-400",
+              isTemplate && "text-[#FAC748]",
             )}
           >
             상태 :
           </span>{" "}
-          {status}
+          <span
+            className={cn(
+              "text-red-500",
+              status === "running" && "text-green-500",
+            )}
+          >
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </span>
         </p>
       </div>
     </div>
