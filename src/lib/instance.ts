@@ -45,6 +45,7 @@ instance.interceptors.response.use(
         console.error("Token refresh failed:", err);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
+        window.location.href = "/login";
 
         return Promise.reject(err);
       }
