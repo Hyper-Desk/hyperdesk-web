@@ -38,7 +38,7 @@ export default function Login() {
         console.error(error);
         if (error.response?.status === 400) {
           setError("root", {
-            message: "아이디 또는 비밀번호가 일치하지 않습니다.",
+            message: "형식이 올바르지 않습니다.",
           });
         } else if (error.response?.status === 401) {
           setError("root", {
