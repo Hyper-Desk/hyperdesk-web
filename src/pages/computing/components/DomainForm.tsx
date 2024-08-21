@@ -26,7 +26,7 @@ export default function DomainForm() {
   const { isError, error } = useQuery({
     queryKey: ["proxy"],
     queryFn: async () => {
-      const { data } = await instance.get("/user/proxy");
+      const { data } = await instance.get("/proxmox/proxy");
       setValue("domain", data.address);
       setValue("port", data.port);
       return data;
