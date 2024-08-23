@@ -5,11 +5,11 @@ import { useToast } from "@/components/ui/use-toast";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
-import Node from "./Node";
-import { SystemNode } from "../types/proxmox";
-import CreateNodeDialog from "./CreateNodeDialog";
+import VM from "./VM";
+import { VMTypes } from "../types/proxmox";
+import CreateVMDialog from "./CreateVMDialog";
 
-export default function NodesList() {
+export default function VMList() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { domain, port, userId, password } = useProxmoxStore((state) => state);
@@ -65,12 +65,12 @@ export default function NodesList() {
               key={key}
               className="grid grid-cols-auto-fit place-items-center gap-4"
             >
-              <CreateNodeDialog />
-              {data[key].cts.map((container: SystemNode) => (
-                <Node key={container.uniqueId} node={container} />
+              <CreateVMDialog />
+              {data[key].cts.map((container: VMTypes) => (
+                <VM key={container.uniqueId} vm={container} />
               ))}
-              {data[key].vms.map((vm: SystemNode) => (
-                <Node key={vm.uniqueId} node={vm} />
+              {data[key].vms.map((vm: VMTypes) => (
+                <VM key={vm.uniqueId} vm={vm} />
               ))}
             </div>
           ))}

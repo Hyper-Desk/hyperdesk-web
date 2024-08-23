@@ -1,25 +1,15 @@
 import { cn } from "@/lib/utils";
-import { SystemNode } from "../types/proxmox";
+import { VMTypes } from "../types/proxmox";
 import VMImage from "/node/vm.webp";
 import LXCImage from "/node/lxc.webp";
 import VMTemplateImage from "/node/vm-template.webp";
 
 interface NodeProps {
-  node: SystemNode;
+  vm: VMTypes;
 }
 
 export default function Node({
-  node: {
-    vmid,
-    name,
-    cpus,
-    maxdisk,
-    maxmem,
-    registered,
-    status,
-    type,
-    template,
-  },
+  vm: { vmid, name, cpus, maxdisk, maxmem, registered, status, type, template },
 }: NodeProps) {
   const isLXC = type === "lxc";
   const isTemplate = template !== undefined;

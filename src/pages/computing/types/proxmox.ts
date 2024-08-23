@@ -1,4 +1,4 @@
-export interface SystemNode {
+export interface VMTypes {
   uniqueId: string;
   vmid: number;
   name: string;
@@ -9,9 +9,4 @@ export interface SystemNode {
   status: string;
   type?: string;
   template?: number;
-}
-
-export interface ParentNode {
-  cts: Node[];
-  vms: Node[];
 }
