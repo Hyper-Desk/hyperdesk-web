@@ -79,9 +79,6 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
 
     if (!output) return;
 
-    if (currentStep === steps.length - 1) {
-      await handleSubmit(processForm)();
-    }
     setCurrentStep((step) => step + 1);
   };
 
@@ -205,7 +202,7 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                   htmlFor="osstorage"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Country
+                  OS 스토리지
                 </Label>
                 <Controller
                   control={control}
@@ -235,7 +232,7 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                   htmlFor="osiso"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Country
+                  OS ISO
                 </Label>
                 <Controller
                   control={control}
@@ -328,7 +325,9 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
             </svg>
           </button>
           {currentStep === steps.length - 1 ? (
-            <Button>생성하기</Button>
+            <Button type="submit" onClick={handleSubmit(processForm)}>
+              생성하기
+            </Button>
           ) : (
             <button
               type="button"
