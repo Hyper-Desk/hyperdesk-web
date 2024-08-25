@@ -10,3 +10,10 @@ export interface VMTypes {
   type?: string;
   template?: number;
 }
+
+export interface Node {
+  [key: string]: {
+    cts: VMTypes[];
+    vms: VMTypes[];
+  };
+}

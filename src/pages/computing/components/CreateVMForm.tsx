@@ -4,29 +4,51 @@ import { motion } from "framer-motion";
 import { z } from "zod";
 import { VMFormSchema } from "../lib/createVMFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 type Inputs = z.infer<typeof VMFormSchema>;
 
 const steps = [
   {
     id: "Step 1",
-    name: "기본 정보 입력",
-    fields: ["node", "vmid"],
+    name: "기본 정보",
+    fields: ["name", "vmid"],
   },
   {
     id: "Step 2",
-    name: "Address",
-    fields: ["country", "state", "city", "street", "zip"],
+    name: "OS 정보 입력",
+    fields: ["osstorage", "osiso"],
   },
-  { id: "Step 3", name: "Complete" },
+  { id: "Step 3", name: "리뷰" },
 ];
 
-export default function CreateVMForm() {
-  const [previousStep, setPreviousStep] = useState(0);
+const VMCreateFormKeys: { title: string; key: keyof Inputs }[] = [
+  {
+    title: "가상 머신 이름",
+    key: "name",
+  },
+  { title: "VM ID", key: "vmid" },
+  { title: "OS 스토리지", key: "osstorage" },
+  { title: "OS", key: "osiso" },
+];
+
+interface CreateVMFormProps {
+  node: string;
+  setOpen: (value: boolean) => void;
+}
+
+export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
   const [currentStep, setCurrentStep] = useState(0);
-  const delta = currentStep - previousStep;
 
   const {
     register,
@@ -34,13 +56,19 @@ export default function CreateVMForm() {
     reset,
     trigger,
     formState: { errors },
+    control,
+    getValues,
   } = useForm<Inputs>({
     resolver: zodResolver(VMFormSchema),
+    defaultValues: {
+      node: node,
+    },
   });
 
   const processForm: SubmitHandler<Inputs> = (data) => {
     console.log(data);
     reset();
+    setOpen(false);
   };
 
   type FieldName = keyof Inputs;
@@ -51,18 +79,14 @@ export default function CreateVMForm() {
 
     if (!output) return;
 
-    if (currentStep < steps.length - 1) {
-      if (currentStep === steps.length - 2) {
-        await handleSubmit(processForm)();
-      }
-      setPreviousStep(currentStep);
-      setCurrentStep((step) => step + 1);
+    if (currentStep === steps.length - 1) {
+      await handleSubmit(processForm)();
     }
+    setCurrentStep((step) => step + 1);
   };
 
   const prev = () => {
     if (currentStep > 0) {
-      setPreviousStep(currentStep);
       setCurrentStep((step) => step - 1);
     }
   };
@@ -108,41 +132,41 @@ export default function CreateVMForm() {
       <form className="py-12" onSubmit={handleSubmit(processForm)}>
         {currentStep === 0 && (
           <motion.div
-            initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               기본 정보 입력
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              노드에 대한 기본 정보를 입력하세요.
+              가상 머신에 대한 기본 정보를 입력하세요.
             </p>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-3">
-                <label
-                  htmlFor="node"
+                <Label
+                  htmlFor="name"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  노드 이름
-                </label>
+                  가상 머신 이름
+                </Label>
                 <div className="mt-2">
-                  <Input type="text" id="node" {...register("node")} />
-                  {errors.node?.message && (
+                  <Input type="text" id="name" {...register("name")} />
+                  {errors.name?.message && (
                     <p className="mt-2 text-sm text-red-400">
-                      {errors.node.message}
+                      {errors.name.message}
                     </p>
                   )}
                 </div>
               </div>
 
               <div className="sm:col-span-3">
-                <label
+                <Label
                   htmlFor="vmid"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   VM ID
-                </label>
+                </Label>
                 <div className="mt-2">
                   <Input
                     type="number"
@@ -164,130 +188,79 @@ export default function CreateVMForm() {
 
         {currentStep === 1 && (
           <motion.div
-            initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Address
+              OS 정보 입력
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              Address where you can receive mail.
+              OS 정보를 입력하세요.
             </p>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-3">
-                <label
-                  htmlFor="country"
+                <Label
+                  htmlFor="osstorage"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Country
-                </label>
-                <div className="mt-2">
-                  <select
-                    id="country"
-                    {...register("country")}
-                    autoComplete="country-name"
-                    className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary sm:max-w-xs sm:text-sm sm:leading-6"
-                  >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
-                  {errors.country?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.country.message}
-                    </p>
+                </Label>
+                <Controller
+                  control={control}
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="local">
+                          local - 128 / 486 GB
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   )}
-                </div>
+                  name="osstorage"
+                />
+                {errors.osstorage?.message && (
+                  <p className="mt-2 text-sm text-red-400">
+                    {errors.osstorage.message}
+                  </p>
+                )}
               </div>
 
-              <div className="col-span-full">
-                <label
-                  htmlFor="street"
+              <div className="sm:col-span-3">
+                <Label
+                  htmlFor="osiso"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Street address
-                </label>
-                <div className="mt-2">
-                  <Input
-                    type="text"
-                    id="street"
-                    {...register("street")}
-                    autoComplete="street-address"
-                  />
-                  {errors.street?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.street.message}
-                    </p>
+                  Country
+                </Label>
+                <Controller
+                  control={control}
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Linux - Ubuntu 20.04">
+                          Linux - Ubuntu 20.04
+                        </SelectItem>
+                        <SelectItem value="Windows 10">
+                          Windows - Windows 10
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   )}
-                </div>
-              </div>
-
-              <div className="sm:col-span-2 sm:col-start-1">
-                <label
-                  htmlFor="city"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  City
-                </label>
-                <div className="mt-2">
-                  <Input
-                    type="text"
-                    id="city"
-                    {...register("city")}
-                    autoComplete="address-level2"
-                  />
-                  {errors.city?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.city.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="state"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  State / Province
-                </label>
-                <div className="mt-2">
-                  <Input
-                    type="text"
-                    id="state"
-                    {...register("state")}
-                    autoComplete="address-level1"
-                  />
-                  {errors.state?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.state.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="zip"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  ZIP / Postal code
-                </label>
-                <div className="mt-2">
-                  <Input
-                    type="text"
-                    id="zip"
-                    {...register("zip")}
-                    autoComplete="postal-code"
-                  />
-                  {errors.zip?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.zip.message}
-                    </p>
-                  )}
-                </div>
+                  name="osiso"
+                />
+                {errors.osiso?.message && (
+                  <p className="mt-2 text-sm text-red-400">
+                    {errors.osiso.message}
+                  </p>
+                )}
               </div>
             </div>
           </motion.div>
@@ -296,11 +269,36 @@ export default function CreateVMForm() {
         {currentStep === 2 && (
           <>
             <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Complete
+              리뷰
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              Thank you for your submission.
+              모든 정보를 확인하세요.
             </p>
+
+            <div className="mt-10 grid grid-cols-3 gap-x-6 gap-y-8">
+              <div className="p-4 border rounded-lg shadow-sm bg-white">
+                <h3 className="text-sm font-medium leading-6 text-gray-700">
+                  노드
+                </h3>
+                <div className="mt-2 text-sm font-semibold text-gray-900">
+                  <span>{node}</span>
+                </div>
+              </div>
+
+              {VMCreateFormKeys.map((key) => (
+                <div
+                  key={key.key}
+                  className="p-4 border rounded-lg shadow-sm bg-white"
+                >
+                  <h3 className="text-sm font-medium leading-6 text-gray-700">
+                    {key.title}
+                  </h3>
+                  <div className="mt-2 text-sm font-semibold text-gray-900">
+                    <span>{getValues()[key.key]}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </>
         )}
       </form>
@@ -329,27 +327,30 @@ export default function CreateVMForm() {
               />
             </svg>
           </button>
-          <button
-            type="button"
-            onClick={next}
-            disabled={currentStep === steps.length - 1}
-            className="rounded bg-white px-2 py-1 text-sm font-semibold text-primary shadow-sm ring-1 ring-inset ring-primary hover:bg-green-50 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="h-6 w-6"
+          {currentStep === steps.length - 1 ? (
+            <Button>생성하기</Button>
+          ) : (
+            <button
+              type="button"
+              onClick={next}
+              className="rounded bg-white px-2 py-1 text-sm font-semibold text-primary shadow-sm ring-1 ring-inset ring-primary hover:bg-green-50 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="h-6 w-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
     </section>
