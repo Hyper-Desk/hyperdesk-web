@@ -29,6 +29,7 @@ export default function DomainForm() {
       const { data } = await instance.get("/proxmox/proxy");
       setValue("domain", data.address);
       setValue("port", data.port);
+      setValue("id", data.userId);
       return data;
     },
     retry: false,

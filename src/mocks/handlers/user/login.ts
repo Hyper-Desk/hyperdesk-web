@@ -1,8 +1,19 @@
+import { BASE_URL } from "@/lib/constants";
 import { http, HttpResponse } from "msw";
-import { BASE_URL } from "../lib/constants";
 
-export const handlers = [
-  http.post(`${BASE_URL}/user/login`, async ({ request }) => {
+type LoginRequestBody = {
+  userId: string;
+  password: string;
+};
+
+type LoginResponseBody = {
+  accessToken: string;
+  userId: string;
+};
+
+export const loginHandler = http.post<LoginResponseBody, LoginRequestBody>(
+  `${BASE_URL}/user/login`,
+  async ({ request }) => {
     const { userId, password } = await request.json();
 
     if (userId === "minboy" && password === "minboy") {
@@ -19,6 +30,8 @@ export const handlers = [
       );
     }
 
-    return HttpResponse.status(401);
-  }),
-];
+    return new HttpResponse("로그인 실패", {
+      status: 401,
+    });
+  },
+);

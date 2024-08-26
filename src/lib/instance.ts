@@ -30,11 +30,9 @@ instance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const response = await axios.post(
-          "https://go.choish.shop/api/user/refresh",
-          {},
-          { withCredentials: true },
-        );
+        const response = await axios.get(`${BASE_URL}/user/refresh`, {
+          withCredentials: true,
+        });
 
         const newAccessToken = response.data.accessToken;
         localStorage.setItem("accessToken", newAccessToken);
@@ -43,7 +41,7 @@ instance.interceptors.response.use(
 
         return instance(originalRequest);
       } catch (err) {
-        console.error("Token refresh failed:", err);
+        console.error("토큰 갱신 실패 : ", err);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
 
