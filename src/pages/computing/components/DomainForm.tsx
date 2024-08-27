@@ -5,12 +5,14 @@ import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DomainFormFields, domainFormSchema } from "../lib/domainFormSchema";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useProxmoxStore } from "@/stores/useProxmoxStore";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { instance } from "@/lib/instance";
+import { useProxmoxStore } from "@/stores/useProxmoxStore";
 
 export default function DomainForm() {
+  const queryClient = useQueryClient();
+  const setIsTokenValid = useProxmoxStore((state) => state.setIsTokenValid);
   const { toast } = useToast();
   const {
     register,
@@ -20,19 +22,42 @@ export default function DomainForm() {
   } = useForm<DomainFormFields>({
     resolver: zodResolver(domainFormSchema),
   });
-  const { setDomain, setPort, setUserId, setPassword } = useProxmoxStore(
-    (state) => state,
-  );
   const { isError, error } = useQuery({
     queryKey: ["proxy"],
     queryFn: async () => {
       const { data } = await instance.get("/proxmox/proxy");
       setValue("domain", data.address);
       setValue("port", data.port);
-      setValue("id", data.userId);
+      setValue("id", data.proxmoxId);
       return data;
     },
     retry: false,
+  });
+  const { mutateAsync } = useMutation({
+    mutationFn: async (formData: DomainFormFields) => {
+      await instance.post("/proxmox/token", {
+        address: formData.domain,
+        port: formData.port,
+        userId: formData.id,
+        password: formData.password,
+      });
+    },
+    onSuccess: () => {
+      setIsTokenValid(true);
+      queryClient.invalidateQueries({ queryKey: ["vmList"] });
+      toast({
+        variant: "primary",
+        title: "등록 완료",
+        description: "하이퍼바이저가 등록되었습니다.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "등록 실패",
+        description: error.message,
+      });
+    },
   });
 
   useEffect(() => {
@@ -46,16 +71,7 @@ export default function DomainForm() {
   }, [isError, error, toast]);
 
   const onSubmit: SubmitHandler<DomainFormFields> = async (formData) => {
-    setDomain(formData.domain);
-    setPort(formData.port);
-    setUserId(formData.id);
-    setPassword(formData.password);
-
-    toast({
-      variant: "primary",
-      title: "등록 완료",
-      description: "하이퍼바이저가 등록되었습니다.",
-    });
+    await mutateAsync(formData);
   };
 
   return (

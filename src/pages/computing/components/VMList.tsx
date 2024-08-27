@@ -1,4 +1,3 @@
-import { useProxmoxStore } from "@/stores/useProxmoxStore";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getVMList } from "../apis/getVMList";
 import { useToast } from "@/components/ui/use-toast";
@@ -15,18 +14,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useProxmoxStore } from "@/stores/useProxmoxStore";
 
 export default function VMList() {
+  const { isTokenValid } = useProxmoxStore();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const { domain, port, userId, password } = useProxmoxStore((state) => state);
   const { data, isFetching, isPending, isError, error } = useQuery({
-    queryKey: ["vmList", domain, port, userId, password],
-    queryFn: () => getVMList(domain, port, userId, password),
-    enabled: !!domain && !!port && !!userId && !!password,
+    queryKey: ["vmList"],
+    queryFn: () => getVMList(),
+    enabled: isTokenValid,
   });
   const [selectedNode, setSelectedNode] = useState<string | undefined>(
-    undefined,
+    undefined
   );
 
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function VMList() {
                     <VM key={vm.uniqueId} vm={vm} />
                   ))}
                 </div>
-              ),
+              )
           )}
         </div>
       )}
