@@ -3,7 +3,7 @@ import { withProxmox } from "@/mocks/middleware";
 import { http, HttpResponse } from "msw";
 
 type VMListResponseBody = {
-  pve: {
+  [key: string]: {
     cts: {
       cpu: number;
       cpus: number;
@@ -46,51 +46,7 @@ type VMListResponseBody = {
       uptime: number;
       vmid: number;
     }[];
-  };
-  mini: {
-    vms: {
-      cpu: number;
-      cpus: number;
-      disk: string;
-      diskread: string;
-      diskwrite: string;
-      maxdisk: string;
-      maxmem: string;
-      mem: string;
-      name: string;
-      netin: number;
-      netout: number;
-      pid: number;
-      registered: boolean;
-      status: string;
-      uniqueId: string;
-      uptime: number;
-      vmid: number;
-    }[];
-    cts: {
-      cpu: number;
-      cpus: number;
-      disk: string;
-      diskread: string;
-      diskwrite: string;
-      maxdisk: string;
-      maxmem: string;
-      maxswap: number;
-      mem: string;
-      name: string;
-      netin: number;
-      netout: number;
-      pid: number;
-      registered: boolean;
-      status: string;
-      swap: number;
-      tags: string;
-      type: string;
-      uniqueId: string;
-      uptime: number;
-      vmid: number;
-    }[];
-  };
+  }[];
 };
 
 export const vmListHandler = http.get<never, VMListResponseBody>(
