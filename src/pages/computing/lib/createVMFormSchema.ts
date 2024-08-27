@@ -27,4 +27,9 @@ export const VMFormSchema = z.object({
       required_error: "OS ISO를 선택해주세요.",
     })
     .min(1, "OS ISO를 선택해주세요."),
+  network: z
+    .string({
+      required_error: "네트워크를 선택해주세요.",
+    })
+    .min(1, "네트워크를 선택해주세요."),
 });

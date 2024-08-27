@@ -29,7 +29,7 @@ export default function CreateVMDialog({ node }: CreateVMDialogProps) {
           <Plus color={hovered ? "#ffffff" : "#04c8a4"} size={100} />
         </div>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="p-6">
         <DialogHeader className="mb-4">
           <DialogTitle>VM 생성하기</DialogTitle>
           <DialogDescription>

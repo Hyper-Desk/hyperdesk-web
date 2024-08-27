@@ -1,4 +1,5 @@
 import { isoHandler } from "./iso";
+import { networkHandler } from "./network";
 import { proxyHandler } from "./proxy";
 import { storageHandler } from "./storage";
 import { tokenHandler } from "./token";
@@ -10,4 +11,5 @@ export const handlers = [
   tokenHandler,
   storageHandler,
   isoHandler,
+  networkHandler,
 ];

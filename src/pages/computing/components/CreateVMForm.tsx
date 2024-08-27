@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { useStorage } from "../hooks/useStorage";
 import { useISO } from "../hooks/useISO";
 import { cn } from "@/lib/utils";
+import { useNetwork } from "../hooks/useNetwork";
 
 type Inputs = z.infer<typeof VMFormSchema>;
 
@@ -29,10 +30,15 @@ const steps = [
   },
   {
     id: "Step 2",
-    name: "OS 정보 입력",
+    name: "OS 설정",
     fields: ["osstorage", "osiso"],
   },
-  { id: "Step 3", name: "리뷰" },
+  {
+    id: "Step 3",
+    name: "네트워크 설정",
+    fields: ["network"],
+  },
+  { id: "Step 4", name: "리뷰" },
 ];
 
 const VMCreateFormKeys: { title: string; key: keyof Inputs }[] = [
@@ -43,6 +49,7 @@ const VMCreateFormKeys: { title: string; key: keyof Inputs }[] = [
   { title: "VM ID", key: "vmid" },
   { title: "OS 스토리지", key: "osstorage" },
   { title: "OS", key: "osiso" },
+  { title: "네트워크", key: "network" },
 ];
 
 interface CreateVMFormProps {
@@ -68,6 +75,7 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
   });
   const { storageData, storageLoading } = useStorage(node);
   const { isoData, isoLoading } = useISO(node);
+  const { networkData, networkLoading } = useNetwork(node);
 
   const processForm: SubmitHandler<Inputs> = (data) => {
     console.log(data);
@@ -130,7 +138,7 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
       </nav>
 
       {/* Form */}
-      <form className="py-12" onSubmit={handleSubmit(processForm)}>
+      <form className="mt-8" onSubmit={handleSubmit(processForm)}>
         {currentStep === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -284,16 +292,69 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
         )}
 
         {currentStep === 2 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            <h2 className="text-base font-semibold leading-7 text-gray-900">
+              네트워크 정보 입력
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              네트워크 정보를 입력하세요.
+            </p>
+
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div className="sm:col-span-6">
+                <Label
+                  htmlFor="network"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  랜카드 선택
+                </Label>
+                <Controller
+                  control={control}
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {networkLoading ? (
+                          <SelectItem value="loading">로딩 중...</SelectItem>
+                        ) : (
+                          networkData?.map((network) => (
+                            <SelectItem key={network} value={network}>
+                              {network}
+                            </SelectItem>
+                          ))
+                        )}
+                      </SelectContent>
+                    </Select>
+                  )}
+                  name="network"
+                />
+                {errors.network?.message && (
+                  <p className="mt-2 text-sm text-red-400">
+                    {errors.network.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {currentStep === 3 && (
           <>
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               리뷰
             </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600">
+            <p className="text-sm leading-6 text-gray-600">
               모든 정보를 확인하세요.
             </p>
 
-            <div className="mt-10 grid grid-cols-3 gap-x-6 gap-y-8">
-              <div className="p-4 border rounded-lg shadow-sm bg-white">
+            <div className="mt-4 grid grid-cols-3 gap-x-6 gap-y-3">
+              <div className="p-4 border rounded-lg shadow-sm bg-white cursor-pointer hover:bg-gray-200">
                 <h3 className="text-sm font-medium leading-6 text-gray-700">
                   노드
                 </h3>
@@ -306,7 +367,7 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                 <div
                   key={key.key}
                   className={cn(
-                    "p-4 border rounded-lg shadow-sm bg-white",
+                    "p-4 border rounded-lg shadow-sm bg-white cursor-pointer hover:bg-gray-200",
                     key.title === "OS" && "col-span-2"
                   )}
                 >
@@ -318,6 +379,12 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                   </div>
                 </div>
               ))}
+
+              <div className="col-span-2 bg-primary rounded-lg shadow-sm relative">
+                <div className="absolute h-full w-[18px] -skew-x-[15deg] bg-white left-[165px]"></div>
+                <div className="absolute h-full w-[18px] -skew-x-[15deg] bg-white left-[195px]"></div>
+                <div className="absolute h-full w-[18px] -skew-x-[15deg] bg-white left-[225px]"></div>
+              </div>
             </div>
           </>
         )}
