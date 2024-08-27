@@ -11,17 +11,10 @@ type ProxyResponseBody = {
 export const proxyHandler = http.get<never, ProxyResponseBody>(
   `${BASE_URL}/proxmox/proxy`,
   withAuth(() => {
-    return HttpResponse.json(
-      {
-        address: "minboy.duckdns.org",
-        port: "8006",
-        userId: "root",
-      },
-      {
-        headers: {
-          "Set-Cookie": "proxmox=1234",
-        },
-      }
-    );
+    return HttpResponse.json({
+      address: "minboy.duckdns.org",
+      port: "8006",
+      proxmoxId: "root",
+    });
   })
 );
