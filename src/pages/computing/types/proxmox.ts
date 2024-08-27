@@ -17,3 +17,29 @@ export interface Node {
     vms: VMTypes[];
   };
 }
+
+export interface StorageData {
+  diskStorage: {
+    active: 0 | 1;
+    avail: string;
+    content: string;
+    enabled: 0 | 1;
+    shared: 0 | 1;
+    storage: string;
+    total: string;
+    used: string;
+    used_fraction: number;
+  }[];
+}
+
+interface ISO {
+  [key: string]: {
+    content: string;
+    ctime: number;
+    format: string;
+    size: number;
+    volid: string;
+  }[];
+}
+
+export type ISOData = ISO[];

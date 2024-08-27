@@ -15,6 +15,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { useStorage } from "../hooks/useStorage";
+import { useISO } from "../hooks/useISO";
+import { cn } from "@/lib/utils";
 
 type Inputs = z.infer<typeof VMFormSchema>;
 
@@ -49,7 +52,6 @@ interface CreateVMFormProps {
 
 export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
   const [currentStep, setCurrentStep] = useState(0);
-
   const {
     register,
     handleSubmit,
@@ -64,6 +66,8 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
       node: node,
     },
   });
+  const { storageData, storageLoading } = useStorage(node);
+  const { isoData, isoLoading } = useISO(node);
 
   const processForm: SubmitHandler<Inputs> = (data) => {
     console.log(data);
@@ -197,7 +201,7 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
             </p>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-6">
                 <Label
                   htmlFor="osstorage"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -212,9 +216,18 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="local">
-                          local - 128 / 486 GB
-                        </SelectItem>
+                        {storageLoading ? (
+                          <SelectItem value="loading">로딩 중...</SelectItem>
+                        ) : (
+                          storageData?.diskStorage.map((storage) => (
+                            <SelectItem
+                              key={storage.storage}
+                              value={storage.storage}
+                            >
+                              {`${storage.storage} - (${storage.avail} / ${storage.total}) GB`}
+                            </SelectItem>
+                          ))
+                        )}
                       </SelectContent>
                     </Select>
                   )}
@@ -227,7 +240,7 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                 )}
               </div>
 
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-6">
                 <Label
                   htmlFor="osiso"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -242,12 +255,19 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Linux - Ubuntu 20.04">
-                          Linux - Ubuntu 20.04
-                        </SelectItem>
-                        <SelectItem value="Windows 10">
-                          Windows - Windows 10
-                        </SelectItem>
+                        {isoLoading ? (
+                          <SelectItem value="loading">로딩 중...</SelectItem>
+                        ) : (
+                          isoData?.map((iso) =>
+                            Object.keys(iso).map((key) =>
+                              iso[key].map((item) => (
+                                <SelectItem key={item.volid} value={item.volid}>
+                                  {item.volid}
+                                </SelectItem>
+                              ))
+                            )
+                          )
+                        )}
                       </SelectContent>
                     </Select>
                   )}
@@ -285,7 +305,10 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
               {VMCreateFormKeys.map((key) => (
                 <div
                   key={key.key}
-                  className="p-4 border rounded-lg shadow-sm bg-white"
+                  className={cn(
+                    "p-4 border rounded-lg shadow-sm bg-white",
+                    key.title === "OS" && "col-span-2"
+                  )}
                 >
                   <h3 className="text-sm font-medium leading-6 text-gray-700">
                     {key.title}
