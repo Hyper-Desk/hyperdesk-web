@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 
 export default function Advertisement() {
   return (
-    <div className="mt-20 flex w-[1200px] h-[400px] justify-center gap-52 -z-20">
+    <div className="-z-20 mt-20 flex h-[400px] w-[1200px] justify-center gap-52">
       <img
         className="rounded-2xl shadow-lg"
         src="/landing/recycle.jpeg"

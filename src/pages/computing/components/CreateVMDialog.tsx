@@ -22,7 +22,7 @@ export default function CreateVMDialog({ node }: CreateVMDialogProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <div
-          className="flex h-[350px] w-[350px] cursor-pointer items-center justify-center gap-2 rounded-2xl border-primary bg-white p-6 border-4 hover:bg-primary"
+          className="flex h-[350px] w-[350px] cursor-pointer items-center justify-center gap-2 rounded-2xl border-4 border-primary bg-white p-6 hover:bg-primary"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >

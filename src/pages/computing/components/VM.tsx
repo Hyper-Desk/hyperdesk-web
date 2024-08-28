@@ -16,30 +16,30 @@ export default function Node({
   return (
     <div
       className={cn(
-        "flex-col flex gap-2 border rounded-2xl w-[350px] h-[350px] p-6 hover:bg-gray-100 cursor-pointer justify-between",
+        "flex h-[350px] w-[350px] cursor-pointer flex-col justify-between gap-2 rounded-2xl border p-6 hover:bg-gray-100",
         registered && "border-4 border-red-500",
       )}
     >
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <h1
           className={cn(
-            "text-xl text-primary font-extrabold",
+            "text-xl font-extrabold text-primary",
             isLXC && "text-blue-400",
             isTemplate && "text-[#FAC748]",
           )}
         >
           {vmid}
         </h1>
-        <h1 className="text-sm text-gray-900 font-semibold">{name}</h1>
+        <h1 className="text-sm font-semibold text-gray-900">{name}</h1>
       </div>
 
       <img
         src={isLXC ? LXCImage : isTemplate ? VMTemplateImage : VMImage}
         alt="VM"
-        className="self-center w-[200px] h-[200px] object-cover rounded-xl"
+        className="h-[200px] w-[200px] self-center rounded-xl object-cover"
       />
 
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <p className="font-semibold">
           <span
             className={cn(
@@ -66,7 +66,7 @@ export default function Node({
         </p>
       </div>
 
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <p className="font-semibold">
           <span
             className={cn(

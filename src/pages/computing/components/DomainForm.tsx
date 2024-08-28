@@ -38,14 +38,14 @@ export default function DomainForm() {
 
   return (
     <form
-      className="flex flex-col items-center w-full"
+      className="flex w-full flex-col items-center"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex flex-col gap-4 self-center w-7/8">
+      <div className="w-7/8 flex flex-col gap-4 self-center">
         <h1 className="text-4xl font-bold text-primary">
           🖥️ 하이퍼바이저 등록
         </h1>
-        <div className="flex gap-4 w-full justify-center mt-4">
+        <div className="mt-4 flex w-full justify-center gap-4">
           <div className="flex flex-col gap-4">
             <Label
               htmlFor="domain"
@@ -102,7 +102,7 @@ export default function DomainForm() {
         <Button className="w-full" disabled={isSubmitting}>
           {isSubmitting ? "등록 중..." : "등록하기"}
         </Button>
-        <div className="my-2 rounded-md text-sm w-full h-[10px] font-medium flex justify-center items-center text-red-500">
+        <div className="my-2 flex h-[10px] w-full items-center justify-center rounded-md text-sm font-medium text-red-500">
           {errors.root?.message ||
             errors.domain?.message ||
             errors.port?.message ||

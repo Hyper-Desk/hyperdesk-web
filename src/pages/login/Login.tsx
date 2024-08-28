@@ -81,24 +81,22 @@ export default function Login() {
           </Button>
           <Link
             to="/signup"
-            className="my-2 rounded-md text-sm font-medium
-            flex items-center justify-center
-            border border-primary-dark bg-white p-2 text-primary-dark hover:bg-gray-200"
+            className="my-2 flex items-center justify-center rounded-md border border-primary-dark bg-white p-2 text-sm font-medium text-primary-dark hover:bg-gray-200"
           >
             회원가입
           </Link>
           {errors.id && (
-            <p className="my-2 rounded-md text-sm font-medium text-red-500 w-full h-[10px] flex justify-center items-center">
+            <p className="my-2 flex h-[10px] w-full items-center justify-center rounded-md text-sm font-medium text-red-500">
               {errors.id.message}
             </p>
           )}
           {errors.password && (
-            <p className="my-2 rounded-md text-sm font-medium text-red-500 w-full h-[10px] flex justify-center items-center">
+            <p className="my-2 flex h-[10px] w-full items-center justify-center rounded-md text-sm font-medium text-red-500">
               {errors.password.message}
             </p>
           )}
           {errors.root && (
-            <p className="my-2 rounded-md text-sm font-medium text-red-500 w-full h-[10px] flex justify-center items-center">
+            <p className="my-2 flex h-[10px] w-full items-center justify-center rounded-md text-sm font-medium text-red-500">
               {errors.root.message}
             </p>
           )}

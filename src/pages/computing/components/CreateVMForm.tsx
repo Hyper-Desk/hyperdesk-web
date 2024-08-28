@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-import { z } from "zod";
 import { VMFormFields, VMFormSchema } from "../lib/createVMFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
@@ -109,7 +108,7 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
             <li key={step.name} className="md:flex-1">
               {currentStep > index ? (
                 <div className="group flex w-full flex-col border-l-4 border-primary py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4">
-                  <span className="text-sm font-medium text-primary transition-colors ">
+                  <span className="text-sm font-medium text-primary transition-colors">
                     {step.id}
                   </span>
                   <span className="text-sm font-medium">{step.name}</span>
@@ -344,8 +343,8 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                                 <SelectItem key={item.volid} value={item.volid}>
                                   {item.volid}
                                 </SelectItem>
-                              ))
-                            )
+                              )),
+                            ),
                           )
                         )}
                       </SelectContent>
@@ -426,7 +425,7 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
             </p>
 
             <div className="mt-4 grid grid-cols-3 gap-x-6 gap-y-3">
-              <div className="p-4 border rounded-lg shadow-sm bg-white cursor-pointer hover:bg-gray-200">
+              <div className="cursor-pointer rounded-lg border bg-white p-4 shadow-sm hover:bg-gray-200">
                 <h3 className="text-sm font-medium leading-6 text-gray-700">
                   노드
                 </h3>
@@ -439,8 +438,8 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                 <div
                   key={key.key}
                   className={cn(
-                    "p-4 border rounded-lg shadow-sm bg-white cursor-pointer hover:bg-gray-200",
-                    key.title === "OS" && "col-span-2"
+                    "cursor-pointer rounded-lg border bg-white p-4 shadow-sm hover:bg-gray-200",
+                    key.title === "OS" && "col-span-2",
                   )}
                 >
                   <h3 className="text-sm font-medium leading-6 text-gray-700">
@@ -452,10 +451,10 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                 </div>
               ))}
 
-              <div className="col-span-2 bg-primary rounded-lg shadow-sm relative">
-                <div className="absolute h-full w-[18px] -skew-x-[15deg] bg-white left-[165px]"></div>
-                <div className="absolute h-full w-[18px] -skew-x-[15deg] bg-white left-[195px]"></div>
-                <div className="absolute h-full w-[18px] -skew-x-[15deg] bg-white left-[225px]"></div>
+              <div className="relative col-span-2 rounded-lg bg-primary shadow-sm">
+                <div className="absolute left-[165px] h-full w-[18px] -skew-x-[15deg] bg-white"></div>
+                <div className="absolute left-[195px] h-full w-[18px] -skew-x-[15deg] bg-white"></div>
+                <div className="absolute left-[225px] h-full w-[18px] -skew-x-[15deg] bg-white"></div>
               </div>
             </div>
           </>

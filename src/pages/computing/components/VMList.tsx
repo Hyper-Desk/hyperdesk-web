@@ -26,7 +26,7 @@ export default function VMList() {
     enabled: isTokenValid,
   });
   const [selectedNode, setSelectedNode] = useState<string | undefined>(
-    undefined
+    undefined,
   );
 
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function VMList() {
                     <VM key={vm.uniqueId} vm={vm} />
                   ))}
                 </div>
-              )
+              ),
           )}
         </div>
       )}

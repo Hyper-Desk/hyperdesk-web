@@ -15,8 +15,8 @@ export default function TechSection() {
   //
   return (
     <div className="-bottom-[1600px] mt-20 flex w-[1600px] flex-col bg-black p-20">
-      <div className="flex gap-8 justify-center">
-        <h1 className="text-5xl font-medium text-white leading-[60px]">
+      <div className="flex justify-center gap-8">
+        <h1 className="text-5xl font-medium leading-[60px] text-white">
           <span className="text-primary">하이퍼데스크</span>는 분산된 가상화
           기반의 개인 유휴 컴퓨팅 자원을 통합/관리하여 하나로 구성한 사설
           클라우드 인프라 서비스 플랫폼입니다.
@@ -53,8 +53,8 @@ export default function TechSection() {
           />
         </section>
       </div>
-      <div className="mt-20 flex gap-12 justify-center">
-        <div className="flex w-[400px] flex-col rounded-xl bg-zinc-900 p-6 cursor-pointer hover:bg-zinc-800">
+      <div className="mt-20 flex justify-center gap-12">
+        <div className="flex w-[400px] cursor-pointer flex-col rounded-xl bg-zinc-900 p-6 hover:bg-zinc-800">
           <img
             alt="hero IMG"
             className="rounded-2xl"
@@ -69,7 +69,7 @@ export default function TechSection() {
             </p>
           </Link>
         </div>
-        <div className="flex w-[400px] flex-col rounded-xl bg-zinc-900 p-6 cursor-pointer hover:bg-zinc-800">
+        <div className="flex w-[400px] cursor-pointer flex-col rounded-xl bg-zinc-900 p-6 hover:bg-zinc-800">
           <img
             alt="hero IMG"
             className="rounded-2xl"
@@ -84,7 +84,7 @@ export default function TechSection() {
             </p>
           </Link>
         </div>
-        <div className="flex w-[400px] flex-col rounded-xl bg-zinc-900 p-6 cursor-pointer hover:bg-zinc-800">
+        <div className="flex w-[400px] cursor-pointer flex-col rounded-xl bg-zinc-900 p-6 hover:bg-zinc-800">
           <img
             alt="hero IMG"
             className="rounded-2xl"

@@ -50,7 +50,7 @@ export default function SignUp() {
   return (
     <div className="flex h-full w-full items-center justify-center p-16">
       <div className="flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold text-primary mb-4">
+        <h1 className="mb-4 text-4xl font-bold text-primary">
           계정을 생성하세요
         </h1>
         <form className="flex w-96 flex-col" onSubmit={handleSubmit(onSubmit)}>
@@ -77,13 +77,11 @@ export default function SignUp() {
           </Button>
           <Link
             to="/login"
-            className="my-2 rounded-md text-sm font-medium
-            flex items-center justify-center
-            border border-primary-dark bg-white p-2 text-primary-dark hover:bg-gray-200"
+            className="my-2 flex items-center justify-center rounded-md border border-primary-dark bg-white p-2 text-sm font-medium text-primary-dark hover:bg-gray-200"
           >
             뒤로 가기
           </Link>
-          <div className="my-2 rounded-md text-sm w-full h-[10px] font-medium flex justify-center items-center text-red-500">
+          <div className="my-2 flex h-[10px] w-full items-center justify-center rounded-md text-sm font-medium text-red-500">
             {errors.root && errors.root.message}
             {errors.id && errors.id.message}
             {errors.password && errors.password.message}

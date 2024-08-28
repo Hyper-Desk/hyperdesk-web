@@ -13,14 +13,14 @@ export default function NavInfo() {
   };
 
   return (
-    <div className="mt-20 flex justify-center items-center bg-gray-100 px-20">
+    <div className="mt-20 flex items-center justify-center bg-gray-100 px-20">
       <div className="flex flex-col">
-        <nav className="flex gap-6 justify-start border-b border-gray-300 text-gray-500">
+        <nav className="flex justify-start gap-6 border-b border-gray-300 text-gray-500">
           <span
             className={cn(
               visibleSection === "section-1" &&
                 "border-b-2 border-primary text-black",
-              "p-8 cursor-pointer hover:bg-gray-200",
+              "cursor-pointer p-8 hover:bg-gray-200",
             )}
             onClick={() => handleNavClick("section-1")}
           >
@@ -30,7 +30,7 @@ export default function NavInfo() {
             className={cn(
               visibleSection === "section-2" &&
                 "border-b-2 border-primary text-black",
-              "p-8 cursor-pointer hover:bg-gray-200",
+              "cursor-pointer p-8 hover:bg-gray-200",
             )}
             onClick={() => handleNavClick("section-2")}
           >
@@ -40,7 +40,7 @@ export default function NavInfo() {
             className={cn(
               visibleSection === "section-3" &&
                 "border-b-2 border-primary text-black",
-              "p-8 cursor-pointer hover:bg-gray-200",
+              "cursor-pointer p-8 hover:bg-gray-200",
             )}
             onClick={() => handleNavClick("section-3")}
           >
@@ -51,7 +51,7 @@ export default function NavInfo() {
           className={cn(visibleSection !== "section-1" && "hidden", "p-10")}
         >
           <div className="flex gap-6">
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+            <div className="flex h-[150px] w-[400px] justify-between rounded-lg border border-gray-200 bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">수익 창출</h1>
                 <p>사용하지 않는 컴퓨팅 자원을 제공해 수익을 창출하세요</p>
@@ -64,7 +64,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+            <div className="flex h-[150px] w-[400px] justify-between rounded-lg border border-gray-200 bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">컴퓨팅 자원</h1>
                 <p>필요한만큼 컴퓨팅 자원을 이용하세요</p>
@@ -77,7 +77,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+            <div className="flex h-[150px] w-[400px] justify-between rounded-lg border border-gray-200 bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">스토리지</h1>
                 <p>소중한 데이터를 안전하게 보관하세요</p>
@@ -96,7 +96,7 @@ export default function NavInfo() {
           className={cn(visibleSection !== "section-2" && "hidden", "p-10")}
         >
           <div className="flex gap-6">
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+            <div className="flex h-[150px] w-[400px] justify-between rounded-lg border border-gray-200 bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -109,7 +109,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+            <div className="flex h-[150px] w-[400px] justify-between rounded-lg border border-gray-200 bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -122,7 +122,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+            <div className="flex h-[150px] w-[400px] justify-between rounded-lg border border-gray-200 bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -141,7 +141,7 @@ export default function NavInfo() {
           className={cn(visibleSection !== "section-3" && "hidden", "p-10")}
         >
           <div className="flex gap-6">
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+            <div className="flex h-[150px] w-[400px] justify-between rounded-lg border border-gray-200 bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -154,7 +154,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+            <div className="flex h-[150px] w-[400px] justify-between rounded-lg border border-gray-200 bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>
@@ -167,7 +167,7 @@ export default function NavInfo() {
                 alt="hero IMG"
               />
             </div>
-            <div className="flex justify-between rounded-lg border border-gray-200 w-[400px] h-[150px] bg-white">
+            <div className="flex h-[150px] w-[400px] justify-between rounded-lg border border-gray-200 bg-white">
               <div className="flex flex-col gap-1 p-4">
                 <h1 className="text-gray-500">{faker.lorem.word()}</h1>
                 <p>{faker.lorem.sentence()}</p>

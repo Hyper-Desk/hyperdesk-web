@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 async function enableMocking() {
-  if (import.meta.env.MODE !== "development") return;
+  if (import.meta.env.VITE_HYPERDESK_MODE !== "development") return;
 
   const { worker } = await import("@/mocks/browser");
 
