@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 import { z } from "zod";
-import { VMFormSchema } from "../lib/createVMFormSchema";
+import { VMFormFields, VMFormSchema } from "../lib/createVMFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -19,14 +19,13 @@ import { useStorage } from "../hooks/useStorage";
 import { useISO } from "../hooks/useISO";
 import { cn } from "@/lib/utils";
 import { useNetwork } from "../hooks/useNetwork";
-
-type Inputs = z.infer<typeof VMFormSchema>;
+import { useCreateVM } from "../hooks/useCreateVM";
 
 const steps = [
   {
     id: "Step 1",
     name: "기본 정보",
-    fields: ["name", "vmid"],
+    fields: ["name", "vmid", "cpu", "maxmem", "maxdisk"],
   },
   {
     id: "Step 2",
@@ -41,7 +40,7 @@ const steps = [
   { id: "Step 4", name: "리뷰" },
 ];
 
-const VMCreateFormKeys: { title: string; key: keyof Inputs }[] = [
+const VMCreateFormKeys: { title: string; key: keyof VMFormFields }[] = [
   {
     title: "가상 머신 이름",
     key: "name",
@@ -64,10 +63,10 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
     handleSubmit,
     reset,
     trigger,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     control,
     getValues,
-  } = useForm<Inputs>({
+  } = useForm<VMFormFields>({
     resolver: zodResolver(VMFormSchema),
     defaultValues: {
       node: node,
@@ -76,14 +75,15 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
   const { storageData, storageLoading } = useStorage(node);
   const { isoData, isoLoading } = useISO(node);
   const { networkData, networkLoading } = useNetwork(node);
+  const { mutateAsync } = useCreateVM(node);
 
-  const processForm: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const processForm: SubmitHandler<VMFormFields> = async (data) => {
+    await mutateAsync(data);
     reset();
     setOpen(false);
   };
 
-  type FieldName = keyof Inputs;
+  type FieldName = keyof VMFormFields;
 
   const next = async () => {
     const fields = steps[currentStep].fields;
@@ -187,6 +187,78 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
                   {errors.vmid?.message && (
                     <p className="mt-2 text-sm text-red-400">
                       {errors.vmid.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="sm:col-span-3">
+                <Label
+                  htmlFor="cpu"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  CPU 코어 수
+                </Label>
+                <div className="mt-2">
+                  <Input
+                    type="number"
+                    id="cpu"
+                    max="16"
+                    {...register("cpu", {
+                      setValueAs: (v) => (v === "" ? undefined : Number(v)),
+                    })}
+                  />
+                  {errors.cpu?.message && (
+                    <p className="mt-2 text-sm text-red-400">
+                      {errors.cpu.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="sm:col-span-3">
+                <Label
+                  htmlFor="maxmem"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  메모리 크기 (GB)
+                </Label>
+                <div className="mt-2">
+                  <Input
+                    type="number"
+                    id="maxmem"
+                    max="16"
+                    {...register("maxmem", {
+                      setValueAs: (v) => (v === "" ? undefined : Number(v)),
+                    })}
+                  />
+                  {errors.maxmem?.message && (
+                    <p className="mt-2 text-sm text-red-400">
+                      {errors.maxmem.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="sm:col-span-3">
+                <Label
+                  htmlFor="maxdisk"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  디스크 크기 (GB)
+                </Label>
+                <div className="mt-2">
+                  <Input
+                    type="number"
+                    max="32"
+                    id="maxdisk"
+                    {...register("maxdisk", {
+                      setValueAs: (v) => (v === "" ? undefined : Number(v)),
+                    })}
+                  />
+                  {errors.maxdisk?.message && (
+                    <p className="mt-2 text-sm text-red-400">
+                      {errors.maxdisk.message}
                     </p>
                   )}
                 </div>
@@ -415,8 +487,12 @@ export default function CreateVMForm({ node, setOpen }: CreateVMFormProps) {
             </svg>
           </button>
           {currentStep === steps.length - 1 ? (
-            <Button type="submit" onClick={handleSubmit(processForm)}>
-              생성하기
+            <Button
+              type="submit"
+              onClick={handleSubmit(processForm)}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "생성 중..." : "생성하기"}
             </Button>
           ) : (
             <button

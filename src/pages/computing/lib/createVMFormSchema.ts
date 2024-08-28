@@ -16,6 +16,24 @@ export const VMFormSchema = z.object({
     })
     .min(100, "100 이상의 숫자를 입력해주세요.")
     .max(999999999, "999999999 이하의 숫자를 입력해주세요."),
+  cpu: z
+    .number({
+      message: "CPU코어 수를 입력해주세요.",
+    })
+    .min(1, "1 이상의 숫자를 입력해주세요.")
+    .max(16, "16 이하의 숫자를 입력해주세요."),
+  maxmem: z
+    .number({
+      required_error: "메모리 크기를 입력해주세요.",
+    })
+    .min(1, "1 이상의 숫자를 입력해주세요.")
+    .max(16, "16 이하의 숫자를 입력해주세요."),
+  maxdisk: z
+    .number({
+      message: "디스크 크기를 입력해주세요.",
+    })
+    .min(1, "1 이상의 숫자를 입력해주세요.")
+    .max(32, "32 이하의 숫자를 입력해주세요."),
   osstorage: z
     .string({
       required_error: "OS 스토리지를 선택해주세요.",
@@ -33,3 +51,5 @@ export const VMFormSchema = z.object({
     })
     .min(1, "네트워크를 선택해주세요."),
 });
+
+export type VMFormFields = z.infer<typeof VMFormSchema>;
